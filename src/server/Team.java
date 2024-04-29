@@ -1,43 +1,84 @@
 package server;
 
-import java.security.InvalidKeyException;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 public class Team {
 	
+	private String teamName;
+	private int teamId;
+	private List<User> clients;
 	
-	private Map<String, Status> clientStatuses;
-	private List<String> clients;
+	public Team(int teamId, String teamName) {
+		this.teamId = teamId;
+		this.teamName = teamName;
+	}
 	
-	public Team(Map<String, Status> clientStatuses, List<String> clients) {
-		this.clientStatuses = clientStatuses;
+	/**
+	 * Exists as a utility for checking team Ids
+	 * @param teamId
+	 */
+	public Team(int teamId) {
+		super();
+		this.teamId = teamId;
+	}
+
+
+	public Team(String teamName, int teamId, List<User> clients) {
+		super();
+		this.teamName = teamName;
+		this.teamId = teamId;
 		this.clients = clients;
 	}
 
-	public Map<String, Status> getClientStatuses() {
-		return clientStatuses;
+
+	public Team(List<User> clients) {
+		super();
+		this.clients = clients;
+	}
+	
+	
+	public String getStatusVector() {
+		StringBuilder str = new StringBuilder();
+		
 	}
 
-	public void setClientStatuses(Map<String, Status> clientStatuses) {
-		this.clientStatuses = clientStatuses;
-	}
-
-	public List<String> getClients() {
+	public List<User> getClients() {
 		return clients;
 	}
 
-	public void setClients(List<String> clients) {
+	public void setClients(List<User> clients) {
 		this.clients = clients;
 	}
-	
-	public boolean updateClientStatus(String clientId, Status newStatus) throws InvalidKeyException {
-		if (clientStatuses.containsKey(clientId)) {
-			clientStatuses.put(clientId, newStatus);
-			return true;
-		} else {
-			throw new InvalidKeyException("Client not found in team");
-		}
+
+	public String getTeamName() {
+		return teamName;
 	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+
+	public int getTeamId() {
+		return teamId;
+	}
+
+	public void getTeamId(int teamString) {
+		this.teamId = teamString;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Team other = (Team) obj;
+		return teamId == other.teamId;
+	}
+	
+	
 
 }
